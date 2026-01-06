@@ -1,0 +1,112 @@
+{% extends 'index.html' %}
+
+{% block head %}
+    <title>Bookings</title>
+    <style>
+        body {
+            background-color: antiquewhite;
+        }
+
+        .custom-card-img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .carousel-inner {
+            max-height: 600px;
+        }
+
+        .carousel-item img {
+            object-fit: cover;
+            height: 600px;
+        }
+
+        .card {
+            transition: transform 0.3s ease;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        /* Hover effect for better UX */
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+        }
+
+        @media (max-width: 768px) {
+            .carousel-inner, .carousel-item img {
+                height: 300px !important;
+            }
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <div class="container my-5">
+        <div class="card shadow-lg border-0 p-4" style="background-color: white; border-radius: 15px;">
+            <h4 class="mb-4 text-center text-uppercase fw-bold">Find Your Stay</h4>
+            <form class="row g-3">
+                <div class="col-md-3">
+                    <label for="city" class="form-label">Destination</label>
+                    <select id="city" class="form-select">
+                        {% for city in ["Aberdeen", "Belfast", "Bristol", "Birmingham", "Cardiff", "Edinburgh", "Glasgow", "London", "Manchester", "Newcastle", "Norwich", "Nottingham", "Plymouth", "Swansea", "Bournemouth", "Kent"] %}
+                            <option>{{ city }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="checkin" class="form-label">Check-in</label>
+                    <input type="date" class="form-control" id="checkin">
+                </div>
+                <div class="col-md-2">
+                    <label for="checkout" class="form-label">Check-out</label>
+                    <input type="date" class="form-control" id="checkout">
+                </div>
+                <div class="col-md-2">
+                    <label for="roomType" class="form-label">Room Type</label>
+                    <select id="roomType" class="form-select">
+                        <option selected>Standard</option>
+                        <option>Double</option>
+                        <option>Family</option>
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <label for="rooms" class="form-label">Rooms</label>
+                    <input type="number" class="form-control" id="rooms" min="1" value="1">
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-warning w-100 fw-bold">Book</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container mb-5">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+            
+            {# List of cities for the cards #}
+            {% set locations = [
+                'Aberdeen', 'Belfast', 'Birmingham', 'Bristol', 
+                'Cardiff', 'Edinburgh', 'Glasgow', 'London', 
+                'Manchester', 'Newcastle', 'Norwich', 'Nottingham', 
+                'Plymouth', 'Swansea', 'Bournemouth', 'Kent'
+            ] %}
+
+            {% for city in locations %}
+            <div class="col">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="{{ city|lower }}.jpg" class="card-img-top custom-card-img" alt="{{ city }}">
+                    <div class="card-body text-center">
+                        <h5 class="card-title fw-bold">{{ city }}</h5>
+                        <a href="#" class="btn btn-primary w-100">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+{% endblock %}
