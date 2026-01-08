@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+{% block head %}
+<title>My Bookings</title>
+{% endblock %}
+{% block main %}
+<h2>My Bookings</h2>
+<ul>
+{% for b in bookings %}
+<li>ID {{ b.booking_id }} {{ b.status }}</li>
+{% endfor %}
+</ul>
+{% endblock %}
